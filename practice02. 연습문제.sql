@@ -49,24 +49,30 @@ FROM job_history his INNER JOIN employees emp ON his.employee_id = emp.employee_
 WHERE his.job_id = 'AC_ACCOUNT';
 
 -- 문제 8.
-SELECT dept.department_id, dept.department_name, emp.first_name, loc.city, con.country_name, reg.region_name
-FROM employees emp JOIN departments dept ON emp.employee_id = dept.manager_id
-				   JOIN locations loc ON dept.location_id = loc.location_id
-				   JOIN countries con ON loc.country_id = con.country_id
-				   JOIN regions reg ON con.region_id = reg.region_id;
+SELECT dept.department_id 부서번호, dept.department_name 부서이름, emp.first_name 매니저이름, loc.city 위치한도시, con.country_name 나라이름, reg.region_name 지역명
+FROM employees emp, 
+	departments dept, 
+    locations loc, 
+    countries con, 
+    regions reg
+WHERE dept.manager_id = emp.employee_id AND
+	dept.location_id = loc.location_id AND
+    loc.country_id = con.country_id AND
+    con.region_id = reg.region_id
+ORDER BY dept.department_id ASC;	
 
 -- 문제 9. departments에 manager_id 가 비어있는게 많음 (주의)
-SELECT emp.employee_id, emp.first_name, dept.department_name, man.first_name
-FROM employees emp LEFT OUTER JOIN departments dept ON emp.department_id = dept.department_id
-				   LEFT OUTER JOIN employees man ON emp.manager_id = man.employee_id;
+SELECT emp.employee_id 사번, emp.first_name 이름, dept.department_name 부서명, man.first_name 매니저이름
+FROM employees emp LEFT JOIN departments dept ON emp.department_id = dept.department_id
+				   LEFT JOIN employees man ON emp.manager_id = man.employee_id;
                    
 -- 문제 9-1.
-SELECT emp.employee_id, emp.first_name, dept.department_name, man.first_name
-FROM employees emp LEFT OUTER JOIN departments dept ON emp.department_id = dept.department_id
-				   JOIN employees man ON emp.manager_id = man.employee_id;
+SELECT emp.employee_id 사번, emp.first_name 이름, dept.department_name 부서명, man.first_name 매니저이름
+FROM employees emp LEFT JOIN departments dept ON emp.department_id = dept.department_id
+				   INNER JOIN employees man ON emp.manager_id = man.employee_id;
 
 -- 문제 9-2.
-SELECT emp.employee_id, emp.first_name, dept.department_name, man.first_name
-FROM employees emp JOIN departments dept ON emp.department_id = dept.department_id
-				   JOIN employees man ON emp.manager_id = man.employee_id;
-
+SELECT emp.employee_id 사번, emp.first_name 이름, dept.department_name 부서명, man.first_name 매니저이름
+FROM employees emp INNER JOIN departments dept ON emp.department_id = dept.department_id
+				   INNER JOIN employees man ON emp.manager_id = man.employee_id;
+                   
