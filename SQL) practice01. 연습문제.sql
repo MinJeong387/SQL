@@ -1,3 +1,6 @@
+USE hrdb;
+
+
 -- 문제 1.
 SELECT concat(first_name," ",last_name) AS 이름, salary AS 월급, phone_number AS 전화번호, hire_date AS 입사일
 FROM employees
@@ -9,9 +12,9 @@ FROM jobs
 ORDER BY max_salary DESC;
 
 -- 문제 3.
-SELECT concat(first_name," ",last_name), job_id, commission_pct, salary
+SELECT first_name, manager_id, commission_pct, salary
 FROM employees
-WHERE job_id IS NOT NULL AND commission_pct IS NULL AND salary>3000
+WHERE manager_id IS NOT NULL AND commission_pct IS NULL AND salary>3000
 ORDER BY salary DESC;
 
 -- 문제 4.
@@ -27,14 +30,14 @@ WHERE 10000<=salary AND salary<14000
 ORDER BY salary DESC;
 
 -- 문제 6.
-SELECT concat(first_name," ",last_name), salary, DATE_FORMAT(hire_date,'%Y-%m'), department_id
+SELECT first_name, salary, DATE_FORMAT(hire_date,'%Y-%m') AS hire_month, department_id
 FROM employees
-WHERE department_id =10 OR department_id =90 OR department_id =100;
+WHERE department_id IN(10,90,100);
 
 -- 문제 7.
-SELECT concat(first_name," ",last_name), salary
+SELECT first_name, salary
 FROM employees
-WHERE first_name LIKE "%S%" OR first_name LIKE "%s%";
+WHERE UPPER(first_name) LIKE '%S%';
 
 -- 문제 8.
 SELECT *
@@ -42,12 +45,11 @@ FROM departments
 ORDER BY LENGTH(department_name) DESC;
 
 -- 문제 9.
-SELECT UPPER(country_name)
+SELECT UPPER(country_name) AS country_name
 FROM countries
-WHERE region_id IS NOT NULL
 ORDER BY country_name;
 
 -- 문제 10.
-SELECT concat(first_name," ",last_name), salary, REPLACE(phone_number,'.','-'), hire_date
+SELECT first_name, salary, REPLACE(phone_number,'.','-'), hire_date
 FROM employees
-WHERE hire_date < '2003-12-31';
+WHERE hire_date <= '03-12-31';
