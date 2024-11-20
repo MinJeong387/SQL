@@ -168,14 +168,6 @@ ORDER BY department_id;				-- (4)
 
 
 
-SELECT department_id, AVG(salary)
-FROM employees
-GROUP BY department_id
-HAVING AVG(salary) > 2000
-ORDER BY department_id;
-
-
-
 
 
 
