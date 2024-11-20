@@ -165,21 +165,3 @@ FROM employees						-- (1)
 GROUP BY department_id				-- (2)
 HAVING AVG(salary) >=7000			-- (3)
 ORDER BY department_id;				-- (4)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
