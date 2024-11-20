@@ -46,16 +46,14 @@ FROM employees emp JOIN jobs j ON emp.job_id = j.job_id
 GROUP BY j.job_title
 ORDER BY SUM(salary) DESC;
 
--- 문제 7. 모르겠다. 다시해보자 !!
-SELECT employee_id, first_name, salary, emp.department_id
-FROM employees emp JOIN (SELECT AVG(salary) FROM employees GROUP BY department_id) tab
+-- 문제 7.
+SELECT emp.employee_id, emp.first_name, emp.salary
+FROM employees emp JOIN (SELECT department_id, AVG(salary) AS Asal 
+						 FROM employees 
+                         GROUP BY department_id) AS tab
 					ON emp.department_id = tab.department_id
-WHERE salary > AVG(salary);
-
-SELECT AVG(salary) FROM employees GROUP BY department_id;
-
-
-
+WHERE emp.salary > tab.Asal;
+                    
 -- 문제 8.
 SELECT employee_id, first_name, salary, hire_date
 FROM employees
