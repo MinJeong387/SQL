@@ -96,6 +96,93 @@ SELECT emp.employee_id, emp.first_name, emp.manager_id, man.employee_id, man.fir
 FROM employees emp LEFT OUTER JOIN employees man
 					ON emp.manager_id = man.employee_id;
 
+--------------------------------------
+-- Aggregation (집계)
+--------------------------------------
+-- 여러 행의 데이터를 입력으로 받아서 하나의 행을 반환
+-- NULL이 포함된 데이터는 NULL을 제외하고 집계
+
+-- 갯수 세기 : count
+SELECT COUNT(*), COUNT(commission_pct), COUNT(department_id)
+FROM employees;
+
+-- *로 카운트하면 모든 행의 수, 특정 컬럼에 null 포함여부는 중요하지 않음
+SELECT COUNT(commission_pct)
+FROM employees;
+-- 위 쿼리는 아래와 같은 의미
+SELECT COUNT(*)
+FROM employees
+WHERE commission_pct IS NOT NULL;
+
+-- 합계 함수 : SUM
+-- 사원들의 월급의 총합은 얼마?
+SELECT SUM(salary)
+FROM employees;
+
+-- 평균 함수 : AVG
+-- 사원들의 웝급의 평균은 얼마?
+SELECT AVG(salary)
+FROM employees;
+
+-- 사원들이 받는 커미션 비율의 평균치는?
+SELECT AVG(commission_pct)	-- 커미션 안받는사람은 제외하고, 커미션 받는 사람들의 평균만 보임
+FROM employees;				-- 22.2 %
+
+SELECT COUNT(commission_pct)
+FROM employees;
+-- 집계 함수는 null을 제외하고 집계
+-- NULL을 변환하여 사용해야 할지의 여부를 정책적으로 결정하고 수행해야 함
+
+SELECT AVG((IFNULL(commission_pct,0)))	-- 이게 정상적인 집계
+FROM employees;							-- 7 %
+
+-- MIN / MAX
+-- 월급의 최솟값, 최댓값, 평균
+SELECT MIN(salary), MAX(salary), AVG(salary)
+FROM employees;
+
+-- 부서별로 평균 급여를 확인
+SELECT department_id, AVG(salary)
+FROM employees;					-- 안됨
+
+-- 수정된 쿼리
+SELECT department_id, AVG(salary)
+FROM employees
+GROUP BY department_id
+ORDER BY department_id;
+
+-- 평균 급여가 7000 이상인 부서만 출력
+SELECT department_id, AVG(salary)
+FROM employees
+WHERE AVG(salary)>=7000
+GROUP BY department_id; 	-- Error! why?
+-- 집계 함수 실행 이전에 where 절 이용한 Selection이 이루어짐
+-- 집계 함수는 WHERE 절에서 활용할 수 없는 상태
+-- 집계 이후에 조건 검사를 하려면 HAVING 절을 활용   (그니까, GROUP BY 이후에 조건을 써줘야 된다는 것 같음)
+
+SELECT department_id, AVG(salary)	-- (5)
+FROM employees						-- (1)
+GROUP BY department_id				-- (2)
+HAVING AVG(salary) >=7000			-- (3)
+ORDER BY department_id;				-- (4)
+
+
+
+SELECT department_id, AVG(salary)
+FROM employees
+GROUP BY department_id
+HAVING AVG(salary) > 2000
+ORDER BY department_id;
+
+
+
+
+
+
+
+
+
+
 
 
 
