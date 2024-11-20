@@ -216,9 +216,49 @@ SELECT employee_id, first_name, salary
 FROM employees
 WHERE salary < 6462;				-- 56
 -- 결합
-SELECT first_name, salary
+SELECT employee_id, first_name, salary
 FROM employees
 WHERE salary < (SELECT AVG(salary) FROM employees);
+
+
+
+-- 다중행 서브쿼리
+-- 서브쿼리의 결과 레코드가 둘 이상일 때는 단순비교연산자는 사용 불가
+-- 서브쿼리의 결과가 둘 이상일 때는
+-- 집합 연산자 (IN, ANY, ALL, EXISTS 등을 사용해야 한다)
+
+SELECT salary FROM employees WHERE department_id = 110;
+
+-- 110 번 부서 사람들이 받는 급여와 동일한 급여를 받는 사원들
+SELECT first_name, salary
+FROM employees
+WHERE salary IN (SELECT salary
+				FROM employees
+                WHERE department_id = 110);
+                
+-- 110 번 부서 사람들이 받는 급여 중 1개 이상보다 많은 급여를 받는 사람들                
+SELECT first_name, salary
+FROM employees
+WHERE salary > ANY (SELECT salary
+					FROM employees
+					WHERE department_id = 110);
+-- ANY 연산자 : 비교연산자와 결합해서 작동
+-- OR 연산자와 비슷				
+
+-- 110 번 부서 사람들이 받는 급여 전체보다 많은 급여를 받는 직원 목록
+SELECT first_name, salary
+FROM employees
+WHERE salary > ALL (SELECT salary
+					FROM employees
+					WHERE department_id = 110);
+-- ALL 연산자 : 비교연산자와 결합해서 사용
+-- AND 연산자와 비슷
+
+
+
+
+
+
 
 
 
