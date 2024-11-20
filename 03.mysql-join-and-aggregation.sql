@@ -215,6 +215,7 @@ SELECT AVG(salary) FROM employees;	-- 6462
 SELECT employee_id, first_name, salary
 FROM employees
 WHERE salary < 6462;				-- 56
+
 -- 결합
 SELECT employee_id, first_name, salary
 FROM employees
@@ -277,6 +278,7 @@ FROM employees emp JOIN (SELECT department_id, MAX(salary)
                          GROUP BY department_id) sal
 					ON emp.department_id = sal.department_id
 ORDER BY emp.department_id;
+
 
 -----------------------------
 -- LIMIT
