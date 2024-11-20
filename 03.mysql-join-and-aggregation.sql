@@ -165,3 +165,63 @@ FROM employees						-- (1)
 GROUP BY department_id				-- (2)
 HAVING AVG(salary) >=7000			-- (3)
 ORDER BY department_id;				-- (4)
+
+------------------------------------
+-- SUBQUERY
+------------------------------------
+
+-- Susan보다 많은 급여를 받는 직원의 목록
+
+-- Query 1. 이름이 Susan인 직원의 급여를 뽑는 쿼리
+SELECT salary FROM employees
+WHERE first_name='Susan';	-- 6500
+
+-- Query 2. 급여를 6500보다 많이 받는 직원의 목록을 뽑는 쿼리
+SELECT first_name, salary
+FROM employees
+WHERE salary > 6500;
+
+-- 쿼리의 결합
+SELECT first_name, salary
+FROM employees
+WHERE salary > (SELECT salary 
+				FROM employees 
+                WHERE first_name='Susan');
+
+-- TODO: 연습문제
+-- 'Den'보다 급여를 많이 받는 사원의 이름과 급여를 출력
+SELECT first_name, salary
+FROM employees
+WHERE salary > (SELECT salary FROM employees WHERE first_name="Den");
+
+-- 급여를 가장 적게 받는 사람의 이름, 급여, 사원번호를 출력
+
+-- Query 1. 가장 적은 급여
+SELECT MIN(salary)
+FROM employees;
+-- Query 2. Query 1의 결과보다 salary가 작은 직원 목록
+SELECT employee_id, first_name, salary
+FROM employees
+WHERE salary = 2100;
+-- 결합
+SELECT employee_id, first_name, salary
+FROM employees
+WHERE salary = (SELECT MIN(salary) FROM employees);
+
+-- 평균 급여보다 적게 받는 사원의 이름과 급여
+-- Query 1. 평균 급여 쿼리
+SELECT AVG(salary) FROM employees;	-- 6462
+-- Query 2. Query 1의 결과보다 salary가 적은 사람의 목록
+SELECT employee_id, first_name, salary
+FROM employees
+WHERE salary < 6462;				-- 56
+-- 결합
+SELECT first_name, salary
+FROM employees
+WHERE salary < (SELECT AVG(salary) FROM employees);
+
+
+
+
+
+
