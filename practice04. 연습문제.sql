@@ -17,6 +17,7 @@ FROM locations loc JOIN departments dept ON loc.location_id = dept.location_id
 				   JOIN employees emp ON dept.department_id = emp.department_id 
 WHERE emp.first_name="Steven" AND emp.last_name="king";
 
+
 -- 문제 4.
 SELECT employee_id, first_name, salary
 FROM employees
