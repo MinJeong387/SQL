@@ -10,6 +10,7 @@ SELECT DATABASE(); -- 선택된 DB 확인
 DESCRIBE employees;
 DESCRIBE departments;
 
+
 -- 가장 기본적인 SELECT의 형태: 전체 데이터(모든 컬럼, 모든 레코드)
 SELECT * FROM employees; -- 107 rows
 SELECT * FROM departments; -- 27 rows
