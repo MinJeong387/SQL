@@ -5,7 +5,6 @@
 
 -- 사용자 생성
 CREATE USER 'testuser'@'localhost' IDENTIFIED BY 'test';
-
 -- 사용자 수정
 ALTER USER 'testuser'@'localhost' IDENTIFIED BY 'abcd';
 -- 사용자 삭제
