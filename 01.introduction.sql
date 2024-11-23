@@ -17,6 +17,7 @@ SHOW TABLES;
 -- employees 테이블 구조 확인
 DESCRIBE employees;
 
+
 -- 서비스에서 root 사용은 위험
 -- root 계정은 전체 DB의 모든 권한을 가지고 있어서 
 -- 가급적 개별 서비스 계정을 만들어서 데이터베이스에
@@ -29,4 +30,3 @@ CREATE USER 'hrdb'@'localhost' IDENTIFIED BY 'hrdb';
 GRANT all privileges ON hrdb.* TO 'hrdb'@'localhost';
 
 -- 새로 Workbench Connection을 만들어 접속
-
