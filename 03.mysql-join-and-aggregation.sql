@@ -163,7 +163,7 @@ GROUP BY department_id; 	-- Error! why?
 SELECT department_id, AVG(salary)	-- (5)
 FROM employees						-- (1)
 GROUP BY department_id				-- (2)
-HAVING AVG(salary) >=7000			-- (3)
+	HAVING AVG(salary) >=7000			-- (3)
 ORDER BY department_id;				-- (4)
 
 ------------------------------------
