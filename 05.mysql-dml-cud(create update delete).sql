@@ -9,7 +9,7 @@ TRUNCATE author;
 
 -- INSERT : 테이블에 새 데이터를 추가 (CREATE)
 -- 데이터를 넣을 컬럼을 지정하지 않으면 전체 데이터를 제공해야 함
-INSERT INTO author
+INSERT INTO author 
 VALUES(1, '박경리', '토지 작가');
 SELECT * FROM author;
 
