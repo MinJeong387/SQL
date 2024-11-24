@@ -178,7 +178,7 @@ INSERT INTO book (book_title) VALUES ('홍길동전');
 INSERT INTO book (book_title) VALUES ('전우치전');
 INSERT INTO book (book_title) VALUES ('춘향전');
 
-SELECT * FROM BOOK;
+SELECT * FROM book;
 -- PRIMARY KEY = NOT NULL + UNIQUE -> 자동 인덱스
 DROP TABLE book;
 
@@ -235,4 +235,5 @@ CREATE TABLE book(
         ON DELETE SET NULL
 	) COMMENT '도서 정보';
 
-SHOW CREATE TABLE BOOK;
+SHOW CREATE TABLE book;
+SELECT * FROM book;
