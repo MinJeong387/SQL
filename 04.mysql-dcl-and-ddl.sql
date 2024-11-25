@@ -235,5 +235,12 @@ CREATE TABLE book(
         ON DELETE SET NULL
 	) COMMENT '도서 정보';
 
-SHOW CREATE TABLE book;
-SELECT * FROM book;
+DROP TABLE author;
+
+-- AUTHOR 테이블 생성
+CREATE TABLE author(
+author_id INTEGER PRIMARY KEY AUTO_INCREMENT COMMENT '작가 아이디',
+author_name VARCHAR(100) NOT NULL COMMENT '작가 이름',
+author_desc VARCHAR(256) COMMENT '작가 설명')
+COMMENT '작가 정보';
+
